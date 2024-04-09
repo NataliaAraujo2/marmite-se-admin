@@ -1,0 +1,32 @@
+:root {
+  --blue: #0094b0;
+  --pink-dark: #db75c9;
+  --pink: #e1a3d6;
+  --yellow: #f3a801;
+  --green: #01c086;
+  --black: #000;
+  --white: #fff;
+  --grey-dark: #696969;
+  --grey: #a59f9f;
+  --grey-light: #e0e0e0;
+}
+
+.container {
+  min-height: 90vh;
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 100;
+  margin-top: 0.3em;
+  background-color: var(--grey-dark);
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar_containe{
+  min-width: 15%;
+}
+
+.main_container {
+ min-width: 85%;
+ min-height: 100%;
+}

@@ -1,0 +1,4 @@
+.branchDetail {
+    display: flex;
+    flex-direction: column;
+}

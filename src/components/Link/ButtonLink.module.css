@@ -1,0 +1,35 @@
+.link {
+  padding: 0.4em;
+  border: 1px solid var(--grey-dark);
+  border-radius: 10px;
+  background-color: var(--grey-light);
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  color: black;
+}
+
+.link svg {
+  margin-left: 0.5em;
+  font-size: 1em;
+}
+
+.active {
+  padding: 0.4em;
+  border: 1px solid var(--grey-dark);
+  border-radius: 10px;
+  background-color: var(--yellow);
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  color: black;
+}
+
