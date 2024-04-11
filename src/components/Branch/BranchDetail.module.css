@@ -2,3 +2,13 @@
     display: flex;
     flex-direction: column;
 }
+
+.branchImage{
+    height: 5em;
+}
+
+.image {
+    height: 20em;
+    width: auto;
+
+}

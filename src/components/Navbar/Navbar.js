@@ -54,6 +54,8 @@ const Navbar = () => {
     return () => {};
   }, []);
 
+ 
+
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarImg}>

@@ -1,10 +1,19 @@
 import styles from "./BranchDetail.module.css";
 
 const BranchDetail = ({ branch }) => {
+  const branchImage = branch.image;
+  console.log(branchImage);
   return (
     <div className={styles.branchDetail}>
       <h3>{branch.branchName}</h3>
-      <img src={branch.image} alt="Setor" />
+
+      <div className={styles.branchImage}>
+        <img
+          className={styles.image}
+          src={branch.url}
+          alt="Setor"
+        />
+      </div>
     </div>
   );
 };

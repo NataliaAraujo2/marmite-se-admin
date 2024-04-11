@@ -12,6 +12,8 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Branchs from "./pages/Branchs/Branchs";
 import Navbar from "./components/Navbar/Navbar";
+import HomeAdmin from "./pages/Home/HomeAdmin";
+import Teste from "./pages/teste/Teste";
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -37,18 +39,23 @@ function App() {
 
           <div className="container">
             <div className="sidebar_container">
-              <Sidebar />
+              <Sidebar key={user} />
             </div>
             <div className="main_container">
               <Routes>
-                <Route path="/admin" element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/teste" element={<Teste />} />
                 <Route
-                  path="/admin/login"
-                  element={!user ? <Login /> : <Navigate to="/" />}
+                  path="/login"
+                  element={!user ? <Login /> : <Navigate to="/homeAdmin" />}
                 />
                 <Route
-                  path="/admin/branchs"
+                  path="/branchs"
                   element={user ? <Branchs /> : <Navigate to="/" />}
+                />
+                 <Route
+                  path="/homeAdmin"
+                  element={user ? <HomeAdmin /> : <Navigate to="/" />}
                 />
               </Routes>
             </div>

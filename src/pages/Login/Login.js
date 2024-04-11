@@ -16,12 +16,16 @@ const Login = () => {
     setPassword("");
     setError("");
 
+
+
     const user = {
       email,
       password,
     };
 
     const res = await login(user);
+
+   
     console.log(res);
   };
 
