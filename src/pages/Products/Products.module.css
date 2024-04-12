@@ -1,0 +1,10 @@
+.products .form {
+width: 50%;
+    
+}
+
+.products .form form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}

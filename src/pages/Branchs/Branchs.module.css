@@ -2,6 +2,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 auto;
   margin-top: 2em;
 }
@@ -11,10 +12,19 @@
   margin-bottom: 2em;
 }
 
-.main {
+.search {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
+
+.search input {
+  width: 60%;
+}
+
+
 
 .addBranch {
   width: 100%;
@@ -22,6 +32,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  margin-top: 2em;
 }
 
 .branchDetails {
@@ -74,10 +85,7 @@
   font-weight: bolder;
   font-size: 1.5em;
   text-transform: uppercase;
-
 }
-
-
 
 .features {
   height: 100%;
@@ -92,17 +100,18 @@
 }
 
 .branchDetailsPreview .button {
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.branchsList {
-  width: 45%;
-  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
-  margin-top: 2em;
+.edit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.branchsList p {
-  color: red;
+.edit p {
+  margin-right: 1em;
+  font-weight: bolder;
 }

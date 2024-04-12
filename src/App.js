@@ -14,6 +14,8 @@ import Branchs from "./pages/Branchs/Branchs";
 import Navbar from "./components/Navbar/Navbar";
 import HomeAdmin from "./pages/Home/HomeAdmin";
 import Teste from "./pages/teste/Teste";
+import Products from "./pages/Products/Products";
+import EditBranchs from "./pages/Branchs/EditBranchs";
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -53,9 +55,17 @@ function App() {
                   path="/branchs"
                   element={user ? <Branchs /> : <Navigate to="/" />}
                 />
+                  <Route
+                  path="/editBranchs/:id"
+                  element={user ? <EditBranchs /> : <Navigate to="/" />}
+                />
                  <Route
                   path="/homeAdmin"
                   element={user ? <HomeAdmin /> : <Navigate to="/" />}
+                />
+                  <Route
+                  path="/products"
+                  element={user ? <Products /> : <Navigate to="/" />}
                 />
               </Routes>
             </div>

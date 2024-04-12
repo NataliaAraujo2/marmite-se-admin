@@ -1,23 +1,25 @@
 import styles from "./Branchs.module.css";
-import { useFetchDocuments } from "../../services/Documents/useFetchDocuments";
-import BranchDetail from "../../components/Branch/BranchDetail";
 import { useState } from "react";
-import { storage } from "../../firebase/config";
+import { db, storage } from "../../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useInsertDocument } from "../../services/Documents/useInsertDocument";
-import { useQueries } from "../../services/Documents/useQueries";
 import logo from "../../images/logo-removebg.png";
 import ButtonLink from "../../components/Link/ButtonLink";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaEdit } from "react-icons/fa";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 
 const Branchs = () => {
   const { insertDocument } = useInsertDocument("branchs");
-  const { filter: filterBranchs, document: filteredBranch } =
-    useQueries("branchs");
 
-  const [img, setImg] = useState("");
+
   const [imgPreview, setimgPreview] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(logo);
+  const [docId, setDocId] =useState("")
   const [branchName, setBranchName] = useState("");
   const [description, setDescription] = useState("");
   const [feature1, setFeature1] = useState("1");
@@ -29,38 +31,50 @@ const Branchs = () => {
   const [progress, setProgress] = useState(0);
   const [success, setSuccess] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
-
-  const { documents: branchs } = useFetchDocuments("branchs");
+  const [noSave, setNoSave] = useState(null);
+  const existBranch = [];
 
   const features = [feature1, feature2, feature3, feature4, feature5];
   const listFeatures = features.map((feature) => (
     <li key={feature.toString()}>{feature}</li>
   ));
-  console.log(features);
 
-  async function queryBranchName() {
-    const field = "branchName";
-    const demand = branchName;
-    await filterBranchs(field, demand);
-  }
-  const handleClick = (e) => {
+  const handleBranchs = async (e) => {
     e.preventDefault();
+    setNoSave(false);
 
-    queryBranchName();
+    const q = query(
+      collection(db, "branchs"),
+      where("branchName", "==", branchName)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        setDocId(doc.id)
+        existBranch.push([doc.data().branchName]);
+      });
 
-    console.log(filteredBranch);
+      if (existBranch.length > 0) {
+        setNoSave(true);
+      }
+      console.log(unsubscribe);
+      console.log(docId)
+    });
+  };
 
-    if (filteredBranch.branchName === branchName) {
-      setFormError("Setor já Cadastrado");
+  const handleClick = async (e) => {
+    e.preventDefault();
+    console.log(noSave);
+
+    if (noSave === true) {
       return;
     }
+    setUploadLoading(true);
 
     if (!imgPreview) {
       setFormError("Selecione uma imagem");
       return;
     }
 
-    setImg(imgPreview);
 
     const storageRef = ref(storage, `images/branchs/${branchName}`);
 
@@ -94,7 +108,6 @@ const Branchs = () => {
             setSuccess(true);
             setUploadLoading(false);
             setBranchName("");
-            queryBranchName();
           } else {
             setFormError("Ocorreu um erro! Tente novamente mais tarde");
           }
@@ -105,88 +118,102 @@ const Branchs = () => {
 
   return (
     <div className={styles.branchs}>
-      <div className={styles.addBranch}>
-        <div className={styles.branchDetails}>
-          <input
-            type="text"
-            placeholder="Qual o nome do setor?"
-            value={branchName}
-            onChange={(e) => setBranchName(e.target.value)}
-          />
-          <input
-            type="file"
-            onChange={(e) => setimgPreview(e.target.files[0])}
-          />
-          <span>Defina até 5 características</span>
-          <input
-            type="text"
-            onChange={(e) => setFeature1(e.target.value)}
-            placeholder="Característica 1"
-          />
-          <input
-            type="text"
-            onChange={(e) => setFeature2(e.target.value)}
-            placeholder="Característica 2"
-          />
-          <input
-            type="text"
-            onChange={(e) => setFeature3(e.target.value)}
-            placeholder="Característica 3"
-          />
-          <input
-            type="text"
-            onChange={(e) => setFeature4(e.target.value)}
-            placeholder="Característica 4"
-          />
-          <input
-            type="text"
-            onChange={(e) => setFeature5(e.target.value)}
-            placeholder="Característica 5"
-          />
-          <textarea
-            placeholder="Coloque a descrição"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-
-          <div>
-            {!uploadLoading ? (
-              <button onClick={handleClick}>Enviar</button>
-            ) : (
-              <button disabled>Aguarde...</button>
+      <h2>CADASTRAR OU EDITAR SETOR</h2>
+      <div className={styles.search}>
+        <input
+          type="text"
+          placeholder="Qual o nome do setor?"
+          value={branchName}
+          onChange={(e) => setBranchName(e.target.value)}
+        />
+        <button onClick={handleBranchs}>OK</button>
+      </div>
+      {noSave === false && (
+        <div className={styles.addBranch}>
+          <div className={styles.branchDetails}>
+            <input
+              type="file"
+              onChange={(e) => setimgPreview(e.target.files[0])}
+            />
+            <span>Defina até 5 características</span>
+            <input
+              type="text"
+              onChange={(e) => setFeature1(e.target.value)}
+              placeholder="Característica 1"
+            />
+            <input
+              type="text"
+              onChange={(e) => setFeature2(e.target.value)}
+              placeholder="Característica 2"
+            />
+            <input
+              type="text"
+              onChange={(e) => setFeature3(e.target.value)}
+              placeholder="Característica 3"
+            />
+            <input
+              type="text"
+              onChange={(e) => setFeature4(e.target.value)}
+              placeholder="Característica 4"
+            />
+            <input
+              type="text"
+              onChange={(e) => setFeature5(e.target.value)}
+              placeholder="Característica 5"
+            />
+            <textarea
+              placeholder="Coloque a descrição"
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <div>
+              {url === logo && (
+                <progress value={progress} max="100" />
+              )}
+              {!uploadLoading ? (
+                <button onClick={handleClick}>Enviar</button>
+              ) : (
+                <button disabled>Aguarde...</button>
+              )}
+              {formError && <p className="error">{formError}</p>}
+              {success && <p className="success">Dados salvos com sucesso</p>}
+            </div>
+          </div>
+          <div className={styles.addBranchImagePreview}>
+            {!imgPreview && <img src={logo} alt="Imagem" />}
+            {imgPreview && (
+              <img src={URL.createObjectURL(imgPreview)} alt="Foto escolhida" />
             )}
-            {formError && <p className="error">{formError}</p>}
+            <div className={styles.branchDetailsPreview}>
+              <div className={styles.tittle}>
+                <p>{branchName}</p>
+              </div>
+
+              <div className={styles.features}>
+                <ul>{listFeatures}</ul>
+              </div>
+              <div className={styles.button}>
+                <ButtonLink
+                  to="/"
+                  text="CONFIRA"
+                  Icon={FaArrowRight}
+                  disabled
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div className={styles.addBranchImagePreview}>
-          {!imgPreview && <img src={logo} alt="Imagem" />}
-          {imgPreview && (
-            <img src={URL.createObjectURL(imgPreview)} alt="Foto escolhida" />
-          )}
-          <div className={styles.branchDetailsPreview}>
-            <div className={styles.tittle}>
-              <p>{branchName}</p>
-            </div>
+      )}
 
-            <div className={styles.features}>
-              <ul>{listFeatures}</ul>
-            </div>
-            <div className={styles.button}>
-              <ButtonLink to="/" text="CONFIRA" Icon={FaArrowRight} disabled />
-            </div>
-          </div>
+      {noSave === true && (
+        <div className={styles.edit}>
+          <p>Setor já cadastrado.</p>
+          <ButtonLink
+            to={`/editBranchs/${docId}`}
+            text="Clique Aqui para editá-lo"
+            Icon={FaEdit}
+          ></ButtonLink>
         </div>
-      </div>
-      <div className={styles.branchsList}>
-        {branchs && branchs.length === 0 && <p>Não há setores cadastrados!</p>}
-
-        {branchs &&
-          branchs.map((branch) => (
-            <div key={branch.id}>
-              <span>{branch.branchName}</span>
-              <button>Editar</button>
-            </div>
-          ))}
-      </div>
+      )}
     </div>
   );
 };
