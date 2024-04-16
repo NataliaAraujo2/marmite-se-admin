@@ -6,20 +6,14 @@ import { useInsertDocument } from "../../../services/Documents/useInsertDocument
 import logo from "../../../images/logo-removebg.png";
 import ButtonLink from "../../../components/Link/ButtonLink";
 import { FaArrowRight, FaEdit } from "react-icons/fa";
-import {
-  collection,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const Branchs = () => {
   const { insertDocument } = useInsertDocument("branchs");
 
-
   const [imgPreview, setImgPreview] = useState("");
   const [url, setUrl] = useState(logo);
-  const [docId, setDocId] =useState("")
+  const [docId, setDocId] = useState("");
   const [branchName, setBranchName] = useState("");
   const [description, setDescription] = useState("");
   const [feature1, setFeature1] = useState("1");
@@ -27,12 +21,19 @@ const Branchs = () => {
   const [feature3, setFeature3] = useState("3");
   const [feature4, setFeature4] = useState("4");
   const [feature5, setFeature5] = useState("5");
+  const [state, setState] = useState("");
+  const options = ["ATIVO" , "INATIVO"]
   const [formError, setFormError] = useState("");
   const [progress, setProgress] = useState(0);
   const [success, setSuccess] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [noSave, setNoSave] = useState(null);
   const existBranch = [];
+
+  const onOptionChangeHandler = (event) => {
+    setState(event.target.value);
+  
+};
 
   const features = [feature1, feature2, feature3, feature4, feature5];
   const listFeatures = features.map((feature) => (
@@ -49,7 +50,7 @@ const Branchs = () => {
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setDocId(doc.id)
+        setDocId(doc.id);
         existBranch.push([doc.data().branchName]);
       });
 
@@ -57,7 +58,7 @@ const Branchs = () => {
         setNoSave(true);
       }
       console.log(unsubscribe);
-      console.log(docId)
+      console.log(docId);
     });
   };
 
@@ -74,7 +75,6 @@ const Branchs = () => {
       setFormError("Selecione uma imagem");
       return;
     }
-
 
     const storageRef = ref(storage, `images/branchs/${branchName}`);
 
@@ -101,6 +101,7 @@ const Branchs = () => {
               features,
               description,
               url,
+              state,
             });
 
             setUrl("");
@@ -131,6 +132,23 @@ const Branchs = () => {
       {noSave === false && (
         <div className={styles.addBranch}>
           <div className={styles.branchDetails}>
+            <div className={styles.branchState}>
+              <h3>Qual a situação do setor?</h3>
+              <select name="state" id="state" onChange={onOptionChangeHandler}>
+                <option>
+                  Escolha uma opção
+                </option>
+
+                {options.map((option, index) => {
+                    return (
+                        <option key={index}>
+                            {option}
+                        </option>
+                    );
+                })}
+              
+              </select>
+            </div>
             <input
               type="file"
               onChange={(e) => setImgPreview(e.target.files[0])}
@@ -166,9 +184,7 @@ const Branchs = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
             <div>
-              {url === logo && (
-                <progress value={progress} max="100" />
-              )}
+              {url === logo && <progress value={progress} max="100" />}
               {!uploadLoading ? (
                 <button onClick={handleClick}>Enviar</button>
               ) : (

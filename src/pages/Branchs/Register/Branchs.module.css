@@ -42,6 +42,18 @@
   align-items: center;
 }
 
+.branchState {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.branchState select {
+  width: 18%;
+}
+
 .addBranch input {
   width: 80%;
 }

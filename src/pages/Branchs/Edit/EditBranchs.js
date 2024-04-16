@@ -16,7 +16,8 @@ const EditBranchs = () => {
   const [url, setUrl] = useState("");
   const [branchName, setBranchName] = useState("");
   const [description, setDescription] = useState("");
-
+  const [state, setState] = useState("");
+  const options = ["ATIVO" , "INATIVO"]
   const [feature1, setFeature1] = useState("");
   const [feature2, setFeature2] = useState("");
   const [feature3, setFeature3] = useState("");
@@ -38,7 +39,7 @@ const EditBranchs = () => {
         setBranchName(branch.branchName);
         setUrl(branch.url);
         setDescription(branch.description);
-
+        setState(branch.state);
         setFeature1(branch.features[0]);
         setFeature2(branch.features[1]);
         setFeature3(branch.features[2]);
@@ -52,6 +53,10 @@ const EditBranchs = () => {
 
   const features = [feature1, feature2, feature3, feature4, feature5];
 
+  const onOptionChangeHandler = (event) => {
+    setState(event.target.value);
+  
+};
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -63,6 +68,7 @@ const EditBranchs = () => {
         branchName,
         features,
         description,
+        state
       };
 
       updateDocument(id, data);
@@ -96,6 +102,7 @@ const EditBranchs = () => {
                 features,
                 description,
                 url,
+                state
               };
 
               updateDocument(id, data);
@@ -125,6 +132,23 @@ const EditBranchs = () => {
             onChange={(e) => setBranchName(e.target.value)}
             placeholder={branchName}
           />
+         <div className={styles.branchState}>
+              <h3>Qual a situação do setor?</h3>
+              <select name="state" id="state" onChange={onOptionChangeHandler}>
+                <option disabled selected>
+                  {state}
+                </option>
+
+                {options.map((option, index) => {
+                    return (
+                        <option key={index}>
+                            {option}
+                        </option>
+                    );
+                })}
+              
+              </select>
+            </div>
           <input
             type="file"
             onChange={(e) => setImgPreview(e.target.files[0])}
@@ -168,7 +192,6 @@ const EditBranchs = () => {
                 <li>{feature3}</li>
                 <li>{feature4}</li>
                 <li>{feature5}</li>
-               
               </ul>
             </div>
             <div className={styles.button}>
