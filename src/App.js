@@ -10,12 +10,12 @@ import { onAuthStateChanged } from "firebase/auth";
 //pages
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
-import Branchs from "./pages/Branchs/Branchs";
+import Branchs from "./pages/Branchs/Register/Branchs";
 import Navbar from "./components/Navbar/Navbar";
 import HomeAdmin from "./pages/Home/HomeAdmin";
 import Teste from "./pages/teste/Teste";
 import Products from "./pages/Products/Products";
-import EditBranchs from "./pages/Branchs/EditBranchs";
+import EditBranchs from "./pages/Branchs/Edit/EditBranchs";
 
 function App() {
   const [user, setUser] = useState(undefined);

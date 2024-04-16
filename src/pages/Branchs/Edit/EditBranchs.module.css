@@ -1,0 +1,102 @@
+.branchs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 2em;
+  }
+  
+  .branchs h2 {
+    text-align: center;
+    margin-bottom: 2em;
+  }  
+  
+  .addBranch {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2em;
+  }
+  
+  .branchDetails {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .addBranch input {
+    width: 80%;
+  }
+  
+  .addBranch span {
+    font-weight: bolder;
+  }
+  
+  .addBranch textarea {
+    width: 80%;
+    height: 10em;
+    resize: vertical;
+  }
+  
+  .addBranchImagePreview {
+    width: 40em;
+    height: 20em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid var(--white);
+  }
+  
+  .addBranchImagePreview img {
+    height: 100%;
+    width: 50%;
+  }
+  
+  .branchDetailsPreview {
+    width: 50%;
+    height: 100%;
+    background-color: var(--green);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .branchDetailsPreview .tittle {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+  
+  .features {
+    height: 100%;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    margin-top: -1em;
+    font-size: 1.5em;
+  }
+  
+  .branchDetailsPreview .button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .edit p {
+    margin-right: 1em;
+    font-weight: bolder;
+  }

@@ -99,9 +99,10 @@ textarea::placeholder {
 }
 
 .success {
-  color: var(--green);
-  background-color: var(--white);
+  color: var(--black);
+  background-color: var(--green);
   border: 1px solid var(--black);
   padding: 5px;
   border-radius: 5px;
+  font-weight: bolder;
 }

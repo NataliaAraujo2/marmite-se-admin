@@ -1,10 +1,10 @@
 import styles from "./Branchs.module.css";
 import { useState } from "react";
-import { db, storage } from "../../firebase/config";
+import { db, storage } from "../../../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { useInsertDocument } from "../../services/Documents/useInsertDocument";
-import logo from "../../images/logo-removebg.png";
-import ButtonLink from "../../components/Link/ButtonLink";
+import { useInsertDocument } from "../../../services/Documents/useInsertDocument";
+import logo from "../../../images/logo-removebg.png";
+import ButtonLink from "../../../components/Link/ButtonLink";
 import { FaArrowRight, FaEdit } from "react-icons/fa";
 import {
   collection,
@@ -17,7 +17,7 @@ const Branchs = () => {
   const { insertDocument } = useInsertDocument("branchs");
 
 
-  const [imgPreview, setimgPreview] = useState("");
+  const [imgPreview, setImgPreview] = useState("");
   const [url, setUrl] = useState(logo);
   const [docId, setDocId] =useState("")
   const [branchName, setBranchName] = useState("");
@@ -118,7 +118,7 @@ const Branchs = () => {
 
   return (
     <div className={styles.branchs}>
-      <h2>CADASTRAR OU EDITAR SETOR</h2>
+      <h2>CADASTRAR NOVO SETOR</h2>
       <div className={styles.search}>
         <input
           type="text"
@@ -133,7 +133,7 @@ const Branchs = () => {
           <div className={styles.branchDetails}>
             <input
               type="file"
-              onChange={(e) => setimgPreview(e.target.files[0])}
+              onChange={(e) => setImgPreview(e.target.files[0])}
             />
             <span>Defina até 5 características</span>
             <input
