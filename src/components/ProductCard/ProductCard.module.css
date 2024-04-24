@@ -28,9 +28,8 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
-    margin-top: 0.5em;
+    margin-top: 1em;
 }
 
 .price{
@@ -73,6 +72,8 @@
   .name {
     font-weight: bolder;
     text-transform: uppercase;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
   }
 
   .description {

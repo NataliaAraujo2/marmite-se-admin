@@ -210,7 +210,7 @@ const Products = () => {
               <img src={product.url} alt={product.name} />
               <span>{product.name}</span>
               <ButtonLink
-                to={`/editProduct/${product.id}`}
+                to={`/editProducts/${product.id}`}
                 text="EDITAR"
                 Icon={FaEdit}
               />

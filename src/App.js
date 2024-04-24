@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar/Navbar";
 import HomeAdmin from "./pages/Home/HomeAdmin";
 import Products from "./pages/Products/Register/Products";
 import EditBranchs from "./pages/Branchs/Edit/EditBranchs";
+import EditProducts from "./pages/Products/Edit/EditProducts";
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -65,6 +66,10 @@ function App() {
                   <Route
                   path="/products"
                   element={user ? <Products /> : <Navigate to="/" />}
+                />
+                   <Route
+                  path="/editProducts/:id"
+                  element={user ? <EditProducts /> : <Navigate to="/" />}
                 />
               </Routes>
             </div>

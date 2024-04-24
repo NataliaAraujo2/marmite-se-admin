@@ -123,15 +123,11 @@ const EditBranchs = () => {
 
   return (
     <div className={styles.branchs}>
-      <h2>EDITAR SETOR</h2>
+      <h1>{branchName}</h1>
 
       <div className={styles.addBranch}>
         <div className={styles.branchDetails}>
-          <input
-            type="text"
-            onChange={(e) => setBranchName(e.target.value)}
-            placeholder={branchName}
-          />
+       
          <div className={styles.branchState}>
               <h3>Qual a situação do setor?</h3>
               <select name="state" id="state" onChange={onOptionChangeHandler}>
