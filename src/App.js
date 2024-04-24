@@ -13,8 +13,7 @@ import Home from "./pages/Home/Home";
 import Branchs from "./pages/Branchs/Register/Branchs";
 import Navbar from "./components/Navbar/Navbar";
 import HomeAdmin from "./pages/Home/HomeAdmin";
-import Teste from "./pages/teste/Teste";
-import Products from "./pages/Products/Products";
+import Products from "./pages/Products/Register/Products";
 import EditBranchs from "./pages/Branchs/Edit/EditBranchs";
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
             <div className="main_container">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/teste" element={<Teste />} />
+              
                 <Route
                   path="/login"
                   element={!user ? <Login /> : <Navigate to="/homeAdmin" />}

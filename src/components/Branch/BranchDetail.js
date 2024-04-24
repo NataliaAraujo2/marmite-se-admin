@@ -5,7 +5,7 @@ const BranchDetail = ({ branch }) => {
   console.log(branchImage);
   return (
     <div className={styles.branchDetail}>
-      <h3>{branch.branchName}</h3>
+      <h3>{branch.name}</h3>
 
       <div className={styles.branchImage}>
         <img

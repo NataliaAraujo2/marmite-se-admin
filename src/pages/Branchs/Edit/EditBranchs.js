@@ -36,7 +36,7 @@ const EditBranchs = () => {
     try {
       if (branch) {
         // const imgPreview
-        setBranchName(branch.branchName);
+        setBranchName(branch.name);
         setUrl(branch.url);
         setDescription(branch.description);
         setState(branch.state);
@@ -65,7 +65,7 @@ const EditBranchs = () => {
 
     if (!imgPreview) {
       const data = {
-        branchName,
+        name: branchName,
         features,
         description,
         state
@@ -98,7 +98,7 @@ const EditBranchs = () => {
             setUrl(url);
             if (url) {
               const data = {
-                branchName,
+                name:branchName,
                 features,
                 description,
                 url,

@@ -7,23 +7,24 @@ import logo from "../../../images/logo-removebg.png";
 import ButtonLink from "../../../components/Link/ButtonLink";
 import { FaArrowRight, FaEdit } from "react-icons/fa";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { useFetchDocuments } from "../../../services/Documents/useFetchDocuments";
 
 const Branchs = () => {
   const { insertDocument } = useInsertDocument("branchs");
-
+  const { documents: branchs } = useFetchDocuments("branchs");
   const [imgPreview, setImgPreview] = useState("");
   const [url, setUrl] = useState(logo);
   const [docId, setDocId] = useState("");
   const [branchName, setBranchName] = useState("");
   const [description, setDescription] = useState("");
-  const [feature1, setFeature1] = useState("1");
-  const [feature2, setFeature2] = useState("2");
-  const [feature3, setFeature3] = useState("3");
-  const [feature4, setFeature4] = useState("4");
-  const [feature5, setFeature5] = useState("5");
+  const [feature1, setFeature1] = useState("");
+  const [feature2, setFeature2] = useState("");
+  const [feature3, setFeature3] = useState("");
+  const [feature4, setFeature4] = useState("");
+  const [feature5, setFeature5] = useState("");
   const [state, setState] = useState("");
-  const options = ["ATIVO" , "INATIVO"]
   const [formError, setFormError] = useState("");
+  const options = ["ATIVO", "INATIVO"];
   const [progress, setProgress] = useState(0);
   const [success, setSuccess] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -32,8 +33,7 @@ const Branchs = () => {
 
   const onOptionChangeHandler = (event) => {
     setState(event.target.value);
-  
-};
+  };
 
   const features = [feature1, feature2, feature3, feature4, feature5];
   const listFeatures = features.map((feature) => (
@@ -43,11 +43,13 @@ const Branchs = () => {
   const handleBranchs = async (e) => {
     e.preventDefault();
     setNoSave(false);
-
-    const q = query(
-      collection(db, "branchs"),
-      where("branchName", "==", branchName)
-    );
+    setFeature1("");
+    setFeature2("");
+    setFeature3("");
+    setFeature4("");
+    setFeature5("");
+    setSuccess(false);
+    const q = query(collection(db, "branchs"), where("name", "==", branchName));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       querySnapshot.forEach((doc) => {
         setDocId(doc.id);
@@ -97,7 +99,7 @@ const Branchs = () => {
           setUrl(url);
           if (url) {
             insertDocument({
-              branchName,
+              name: branchName,
               features,
               description,
               url,
@@ -129,24 +131,32 @@ const Branchs = () => {
         />
         <button onClick={handleBranchs}>OK</button>
       </div>
+    <div className={styles.productListDiv}>
+    {noSave === null &&
+        branchs &&
+        branchs.map((branch) => (
+          <div className={styles.productList} key={branch.id}>
+            <img src={branch.url} alt={branch.name} />
+            <span>{branch.name}</span>
+            <ButtonLink
+              to={`/editBranchs/${branch.id}`}
+              text="EDITAR"
+              Icon={FaEdit}
+            />
+          </div>
+        ))}
+    </div>
       {noSave === false && (
         <div className={styles.addBranch}>
           <div className={styles.branchDetails}>
             <div className={styles.branchState}>
               <h3>Qual a situação do setor?</h3>
               <select name="state" id="state" onChange={onOptionChangeHandler}>
-                <option>
-                  Escolha uma opção
-                </option>
+                <option>Escolha uma opção</option>
 
                 {options.map((option, index) => {
-                    return (
-                        <option key={index}>
-                            {option}
-                        </option>
-                    );
+                  return <option key={index}>{option}</option>;
                 })}
-              
               </select>
             </div>
             <input

@@ -24,8 +24,6 @@
   width: 60%;
 }
 
-
-
 .addBranch {
   width: 100%;
   display: flex;
@@ -34,6 +32,34 @@
   justify-content: space-around;
   margin-top: 2em;
 }
+
+.productListDiv {
+  height: 10em;
+  width: 90%;
+}
+
+.productList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3em;
+  width: 25%;
+  margin-top: 0.5em;
+  flex-wrap: wrap;
+  border: 2px solid var(--pink-dark);
+}
+
+.productList img {
+  width: 3em;
+  height: 3em;
+}
+
+.productList span {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 
 .branchDetails {
   width: 40%;
